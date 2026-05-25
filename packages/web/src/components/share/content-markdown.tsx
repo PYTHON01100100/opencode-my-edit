@@ -3,6 +3,7 @@ import { codeToHtml } from "shiki"
 import markedShiki from "marked-shiki"
 import { createOverflow, useShareMessages } from "./common"
 import { CopyButton } from "./copy-button"
+import { detectRTLLanguage } from "./rtl-detect"
 import { createResource, createSignal } from "solid-js"
 import style from "./content-markdown.module.css"
 
@@ -41,6 +42,7 @@ export function ContentMarkdown(props: Props) {
     },
   )
   const [expanded, setExpanded] = createSignal(false)
+  const isRTL = () => detectRTLLanguage(props.text)
   const overflow = createOverflow()
   const messages = useShareMessages()
 
@@ -49,6 +51,8 @@ export function ContentMarkdown(props: Props) {
       class={style.root}
       data-highlight={props.highlight === true ? true : undefined}
       data-expanded={expanded() || props.expand === true ? true : undefined}
+      data-rtl={isRTL() ? true : undefined}
+      dir={isRTL() ? "rtl" : "ltr"}
     >
       <div data-slot="markdown" ref={overflow.ref} innerHTML={html()} />
 

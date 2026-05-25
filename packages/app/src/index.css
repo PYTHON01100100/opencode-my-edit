@@ -8,6 +8,16 @@
   font-style: normal;
 }
 
+/* Arabic and Hebrew Font Support */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap');
+
+/* RTL text support - use appropriate fonts for Arabic and Hebrew */
+html[dir="rtl"],
+body[dir="rtl"],
+[dir="rtl"] {
+  font-family: "IBM Plex Sans Arabic", "IBM Plex Sans Hebrew", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
 @layer components {
   @keyframes session-progress-whip {
     0% {

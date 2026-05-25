@@ -5,6 +5,13 @@
   align-items: flex-start;
   gap: 1rem;
 
+  /* RTL support for Arabic and Hebrew */
+  &[data-rtl] {
+    align-items: flex-end;
+    text-align: right;
+    direction: rtl;
+  }
+
   [data-slot="expand-button"] {
     flex: 0 0 auto;
     padding: 2px 0;
@@ -58,6 +65,15 @@
       padding-left: 1.5rem;
     }
 
+    /* RTL list styling */
+    .root[data-rtl] & {
+      ol,
+      ul {
+        padding-left: 0;
+        padding-right: 1.5rem;
+      }
+    }
+
     /* Nested list spacing */
     li ul,
     li ol {
@@ -88,6 +104,9 @@
       font-size: 0.857em;
       white-space: pre-wrap;
       word-break: break-word;
+      /* Code blocks should always be LTR */
+      direction: ltr;
+      text-align: left;
 
       span {
         white-space: break-spaces;
@@ -96,6 +115,8 @@
 
     code {
       font-weight: 500;
+      /* Inline code should respect RTL parent */
+      unicode-bidi: plaintext;
 
       &:not(pre code) {
         &::before {
@@ -122,6 +143,14 @@
       text-align: left;
     }
 
+    /* RTL table alignment */
+    .root[data-rtl] & {
+      th,
+      td {
+        text-align: right;
+      }
+    }
+
     th {
       border-bottom: 1px solid var(--sl-color-border);
     }
@@ -145,10 +174,31 @@
     table td:last-child {
       border-right: none;
     }
+
+    /* RTL border handling */
+    .root[data-rtl] & {
+      table th:first-child,
+      table td:first-child {
+        border-left: 1px solid var(--sl-color-border);
+        border-right: none;
+      }
+
+      table th:last-child,
+      table td:last-child {
+        border-left: none;
+        border-right: 1px solid var(--sl-color-border);
+      }
+    }
   }
 
   [data-component="copy-button"] {
     top: 0;
     right: 0;
+  }
+
+  /* RTL copy button positioning */
+  &[data-rtl] [data-component="copy-button"] {
+    right: auto;
+    left: 0;
   }
 }

@@ -46,6 +46,16 @@
       mask-image: var(--term-icon);
       mask-repeat: no-repeat;
     }
+
+    /* RTL support */
+    &[dir="rtl"] {
+      text-align: center;
+
+      &::before {
+        left: auto;
+        right: 10px;
+      }
+    }
   }
 
   [data-slot="content"] {
