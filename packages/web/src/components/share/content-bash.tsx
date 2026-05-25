@@ -2,6 +2,7 @@ import style from "./content-bash.module.css"
 import { createResource, createSignal } from "solid-js"
 import { createOverflow, useShareMessages } from "./common"
 import { codeToHtml } from "shiki"
+import { detectRTLLanguage } from "./rtl-detect"
 
 interface Props {
   command: string
@@ -12,6 +13,7 @@ interface Props {
 
 export function ContentBash(props: Props) {
   const messages = useShareMessages()
+  const isRTL = () => props.description ? detectRTLLanguage(props.description) : false
   const [commandHtml] = createResource(
     () => props.command,
     async (command) => {
@@ -42,9 +44,9 @@ export function ContentBash(props: Props) {
   const overflow = createOverflow()
 
   return (
-    <div class={style.root} data-expanded={expanded() || props.expand === true ? true : undefined}>
+    <div class={style.root} data-expanded={expanded() || props.expand === true ? true : undefined} data-rtl={isRTL() ? true : undefined}>
       <div data-slot="body">
-        <div data-slot="header">
+        <div data-slot="header" dir={isRTL() ? "rtl" : "ltr"}>
           <span>{props.description}</span>
         </div>
         <div data-slot="content">

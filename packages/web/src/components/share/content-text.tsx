@@ -2,6 +2,7 @@ import style from "./content-text.module.css"
 import { createSignal } from "solid-js"
 import { createOverflow, useShareMessages } from "./common"
 import { CopyButton } from "./copy-button"
+import { detectRTLLanguage } from "./rtl-detect"
 
 interface Props {
   text: string
@@ -10,6 +11,7 @@ interface Props {
 }
 export function ContentText(props: Props) {
   const [expanded, setExpanded] = createSignal(false)
+  const isRTL = () => detectRTLLanguage(props.text)
   const overflow = createOverflow()
   const messages = useShareMessages()
 
@@ -18,6 +20,8 @@ export function ContentText(props: Props) {
       class={style.root}
       data-expanded={expanded() || props.expand === true ? true : undefined}
       data-compact={props.compact === true ? true : undefined}
+      data-rtl={isRTL() ? true : undefined}
+      dir={isRTL() ? "rtl" : "ltr"}
     >
       <pre data-slot="text" ref={overflow.ref}>
         {props.text}

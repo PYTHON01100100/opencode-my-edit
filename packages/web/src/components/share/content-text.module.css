@@ -12,6 +12,16 @@
   align-self: flex-start;
   font-size: 0.875rem;
 
+  /* RTL support for Arabic and Hebrew */
+  &[data-rtl] {
+    direction: rtl;
+    text-align: right;
+    padding-left: calc(1rem + 18px);
+    padding-right: calc(0.5rem + 3px);
+    align-items: flex-end;
+    align-self: flex-end;
+  }
+
   &[data-compact] {
     font-size: 0.75rem;
     color: var(--sl-color-text-dimmed);
@@ -29,6 +39,12 @@
 
     [data-expanded] & {
       display: block;
+    }
+
+    /* Preserve LTR for code/monospace text */
+    &[data-rtl] {
+      direction: rtl;
+      text-align: right;
     }
   }
 
@@ -59,5 +75,11 @@
   [data-component="copy-button"] {
     top: 0.5rem;
     right: calc(0.5rem - 1px);
+  }
+
+  /* RTL copy button positioning */
+  &[data-rtl] [data-component="copy-button"] {
+    right: auto;
+    left: calc(0.5rem - 1px);
   }
 }
